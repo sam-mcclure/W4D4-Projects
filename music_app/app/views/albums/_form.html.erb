@@ -1,0 +1,47 @@
+<% if type == :new %>
+  <% action_url = albums_url %>
+  <% button_val = "Create!" %>
+<% elsif type == :edit %>
+  <% action_url = album_url(album) %>
+  <% button_val = "Edit!" %>
+<% end %>
+
+<form action="<%= action_url %>" method="post">
+<input type="hidden" name="authenticity_token"
+value="<%= form_authenticity_token %>">
+
+<% if type == :edit %>
+<input type="hidden" name="_method" value="patch">
+<% end %>
+
+<label>Band:
+<select name="album[band_id]">
+  <% bands.each do |band| %>
+  <option value="<%= band.id %>"
+  <%= album.band_id == band.id ? "selected" : "" %> ><%= band.name %></option>
+  <% end %>
+</select></label>
+
+<br>
+
+<label>Title:
+<input type="text" name="album[title]" value="<%= album.title %>"></label>
+
+<br>
+
+<label>Year:
+<input type="text" name="album[year]" value="<%= album.year %>"></label>
+
+<br>
+
+<label>Studio album?</label>
+<label>Yes<input type="radio" name="album[studio]" value="true"
+  <%= album.studio ? "checked" : "" %>></label>
+<label>No<input type="radio" name="album[studio]" value="false"
+  <%= !album.studio ? "checked" : "" %>></label>
+
+<br>
+
+<input type="submit" value="<%= button_val %>">
+
+</form>

@@ -1,0 +1,16 @@
+<!-- "album_show" -->
+<h1><%= @album.title %></h1>
+
+<label>Band: <%= @band.name %></label>
+<br>
+<label>Year: <%= @album.year %></label>
+<br>
+<label>Type:
+  <% if @album.studio == true%>
+  Studio
+  <% else %>
+  Live
+  <% end %>
+</label>
+
+<a href="<%= edit_album_url(@album) %>">Edit album</a>

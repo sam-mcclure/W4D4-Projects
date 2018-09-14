@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MusicApp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <header>Music App</header>
+
+  <body>
+    <div>
+    <% if current_user.nil? %>
+      <a href="<%= new_user_url %>">Sign up</a>
+      <a href="<%= new_session_url %>">Sign in</a>
+    <% else %>
+      <form action="<%= session_url %>" method="post">
+        <input type="hidden"
+        name="authenticity_token"
+        value="<%= form_authenticity_token %>">
+        <input type="hidden" name="_method" value="delete">
+        <label><%= current_user.email %></label>
+        <input type="submit" value="Logout">
+        </form>
+    <% end %>
+    </div>
+    <%= yield %>
+  </body>
+
+  <footer>
+    <a href="<%= bands_url %>">Homepage</a>
+
+  </footer>
+</html>
